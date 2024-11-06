@@ -52,15 +52,16 @@ buildTests(QStringList & good,
         buildPattern(pattern_idx, "1-2-3 * * * * *") << // Bad range
         buildPattern(pattern_idx, "** * * * * *") << // Bad star
         buildPattern(pattern_idx, "1,,2 * * * * *") << // Bad list
-        buildPattern(pattern_idx, "/1") << // invalid syntax / character
-        ;
+        buildPattern(pattern_idx, "/1") <<
+        buildPattern(pattern_idx, QString("%1/2").arg(min)) <<
+        buildPattern(pattern_idx, QString("%1,%2,%3/2").arg(min).arg(min + 1).arg(max - 1));// invalid syntax / character
     good << buildPattern(pattern_idx, QString::number(min)) <<
-         buildPattern(pattern_idx, QString("000000000%1").arg(min)) <<
-         buildPattern(pattern_idx, QString::number(max)) <<
-         buildPattern(pattern_idx, QString("%1-%2").arg(min).arg(max)) <<
-         buildPattern(pattern_idx, QString("%1-%1").arg(min)) <<
-         buildPattern(pattern_idx, QString("%1,%2,%3").arg(min).arg(min + 1).arg(max - 1)) <<
-         buildPattern(pattern_idx, QString("%1,%1").arg(min));
+        buildPattern(pattern_idx, QString("000000000%1").arg(min)) <<
+        buildPattern(pattern_idx, QString::number(max)) <<
+        buildPattern(pattern_idx, QString("%1-%2").arg(min).arg(max)) <<
+        buildPattern(pattern_idx, QString("%1-%1").arg(min)) <<
+        buildPattern(pattern_idx, QString("%1,%2,%3").arg(min).arg(min + 1).arg(max - 1)) <<
+        buildPattern(pattern_idx, QString("%1,%1").arg(min));
 }
 
 /******************************************************************************/
