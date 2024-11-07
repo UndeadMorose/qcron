@@ -15,6 +15,4 @@ connect(&cron, SIGNAL(activated()),   this, SLOT(onActivation()));
 connect(&cron, SIGNAL(deactivated()), this, SLOT(onDeactivation()));
 ```
 
-The 'activated' signal will be emitted every weekday at 8.00 and
-14.00, and the 'deactivated' signal will be emitted every weekday at
-12.00 and 18.00.
+The “Activated” signal will be given every weekday every minute from 8:00 to 11:59 and from 14:00 to 17:59.
