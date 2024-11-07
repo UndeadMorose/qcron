@@ -105,7 +105,7 @@ private:
 class QCronEveryNode : public QCronNode
 {
 public:
-    QCronEveryNode(QCronNode *, QCronIntNode *);
+    QCronEveryNode(QCronNode *, QCronIntNode *, uint = 0);
 
     virtual int next(int t) const Q_DECL_OVERRIDE;
     virtual bool match(const QDateTime & dt) const Q_DECL_OVERRIDE;
@@ -117,6 +117,7 @@ public:
 private:
     QCronNode * _what;
     QCronIntNode * _freq;
+    uint _offset;
 };
 
 /******************************************************************************/

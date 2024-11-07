@@ -81,6 +81,7 @@ QCronField::
 _parseEvery(QString & str)
 {
     str.remove(0, 1);
+    uint offset = 0;
     if (!_last_node) {
         throw QCronFieldException(QString("Every node for string %1 has null last node.")
                                       .arg(str));
@@ -90,7 +91,12 @@ _parseEvery(QString & str)
         throw QCronFieldException(QString("For string %1, last node is not a range.")
                                       .arg(str));
     }
-    return new QCronEveryNode(_last_node, _parseInt(str));
+    else
+    {
+        QCronRangeNode *range = dynamic_cast<QCronRangeNode *>(_last_node);
+        if(range != nullptr) offset = range->beginValue();
+    }
+    return new QCronEveryNode(_last_node, _parseInt(str), offset);
 }
 
 /******************************************************************************/

@@ -213,9 +213,11 @@ match(const QDateTime & dt) const
 
 QCronEveryNode::
 QCronEveryNode(QCronNode * what,
-               QCronIntNode * freq)
+               QCronIntNode * freq,
+               uint offset)
     : _what(what)
     , _freq(freq)
+    , _offset(offset)
 {
 }
 
@@ -229,7 +231,7 @@ process(QCron * cron ,
 {
     int freq = _freq->value();
     _what->process(cron, dt, field);
-    while (_field->getDateTimeSection(dt) % freq)
+    while ((_field->getDateTimeSection(dt) - _offset) % freq)
     {
         cron->add(dt, field, 1);
         _what->process(cron, dt, field);
@@ -260,7 +262,7 @@ bool
 QCronEveryNode::
 match(const QDateTime & dt) const
 {
-    int tu = _field->getDateTimeSection(dt);
+    int tu = _field->getDateTimeSection(dt) - _offset;
     return _what->match(dt) && tu % _freq->value() == 0;
 }
 
